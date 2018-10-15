@@ -19,7 +19,8 @@
     "test:e2e": "jest '(\\/test\\/e2e/).*'",
     "pack": "npm run build && electron-builder --dir",
     "dist": "npm run build && electron-builder",
-    "postinstall": "electron-builder install-app-deps"
+    "postinstall": "electron-builder install-app-deps",
+    "build-pi": "electron-packager . electron-react-app --platform=linux --arch=armv7l --overwrite --prune=true --out=release"
   },
   "lint-staged": {
     "{src,test,mocks}/**/*.{js,ts,tsx,json,css,scss,md}": [
