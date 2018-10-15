@@ -7,8 +7,47 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}/dist/main.js"
+            "name": "Electron: Main",
+            "protocol": "inspector",
+            "program": "${workspaceFolder}/dist/main.js",
+            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd",
+            "runtimeArgs": [
+                ".",
+                "--enable-logging",
+                "--nolazy",
+                "-r",
+                "ts-node/register",
+                "--remote-debugging-port=9222"
+            ],
+            "windows": {
+                "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
+            }            
+//            "env": {},   
+//            "args": ["${relativeFile}"],
+//            "sourceMaps": true,
+//            "cwd": "${workspaceRoot}",             
+        },
+		{
+            
+            "type": "chrome",
+            "request": "attach",
+            "name": "Electron: Renderer",
+            "port": 9222,
+            "webRoot": "${workspaceRoot}/html",
+            "sourceMaps": true,
+            "sourceMapPathOverrides": {
+                "webpack:///render/*": "${workspaceRoot}/render/*",
+                "webpack:///./render/*": "${workspaceRoot}/render/*"
+            }
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Electron: All",
+            "configurations": [
+                "Electron: Main",
+                "Electron: Renderer"
+            ]
         }
     ]
 }
